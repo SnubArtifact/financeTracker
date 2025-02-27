@@ -9,7 +9,7 @@ themeToggle.addEventListener('click', () => {
   themeToggle.textContent = isDarkTheme ? '☀️ ' : '🌙 ';
 });
 
-// Load saved theme
+
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
   body.classList.add('dark-theme');
@@ -33,7 +33,7 @@ const amountInput = document.getElementById('amount');
 const typeInput = document.getElementById('type');
 const addTransactionButton = document.getElementById('add-transaction');
 
-// Charts
+
 let balanceChartInstance = null;
 let pieChartInstance = null;
 
@@ -54,7 +54,7 @@ function updateDashboard() {
   expensesElement.textContent = `$${totalExpenses.toFixed(2)}`;
 }
 
-// Render Transactions
+//  Transactions
 function renderTransactions() {
   transactionList.innerHTML = transactions
     .map(
@@ -72,7 +72,7 @@ function renderTransactions() {
     .join('');
 }
 
-// Delete Transaction
+// To Delete Transaction
 function deleteTransaction(index) {
   if (confirm('Are you sure you want to delete this transaction?')) {
     transactions.splice(index, 1);
@@ -82,7 +82,7 @@ function deleteTransaction(index) {
   }
 }
 
-// Render Charts
+
 function renderCharts() {
   const ctx = document.getElementById('financeChart').getContext('2d');
   const pieCtx = document.getElementById('pieChart').getContext('2d');
@@ -138,7 +138,7 @@ function renderCharts() {
   });
 }
 
-// Add Transaction
+// To add Transaction
 addTransactionButton.addEventListener('click', () => {
   const desc = descInput.value.trim();
   const amount = parseFloat(amountInput.value);
@@ -171,7 +171,7 @@ document.getElementById('logout-link').addEventListener('click', function(event)
   setTimeout(() => window.location.href = 'login.html', 500);
 });
 
-// Initial Render
+
 updateDashboard();
 renderTransactions();
 renderCharts();
