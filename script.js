@@ -64,8 +64,8 @@ function renderTransactions() {
         <td>${t.description}</td>
         <td>$${t.amount.toFixed(2)}</td>
         <td>
-          <button onclick="editTransaction(${index})">✏️ Edit</button>
-          <button onclick="deleteTransaction(${index})">❌ Delete</button>
+          <button onclick="editTransaction(${index})">✏️ </button>
+          <button onclick="deleteTransaction(${index})">❌ </button>
         </td>
       </tr>
     `
@@ -97,9 +97,7 @@ function editTransaction(index) {
     const amount = parseFloat(amountInput.value);
     const type = typeInput.value;
 
-    if (!desc || isNaN(amount)) {
-      alert('Please enter a valid description and amount.');
-      return;
+   
     }
 
     transactions[index] = {
