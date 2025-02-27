@@ -9,14 +9,14 @@ themeToggle.addEventListener('click', () => {
   themeToggle.textContent = isDarkTheme ? '☀️ ' : '🌙 ';
 });
 
-//for loading saved theme
+// Load saved theme
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') {
   body.classList.add('dark-theme');
   themeToggle.textContent = '☀️ ';
 }
 
-//sample Data
+// Sample Data
 let transactions = [
   { date: '2025-02-01', description: 'Salary', amount: 3000, type: 'income' },
   { date: '2025-02-02', description: 'Rent', amount: 1000, type: 'expense' },
@@ -27,18 +27,17 @@ let transactions = [
 const balanceElement = document.getElementById('balance');
 const incomeElement = document.getElementById('income');
 const expensesElement = document.getElementById('expenses');
-const dailyLimitInput = document.getElementById('daily-limit');
 const transactionList = document.getElementById('transaction-list');
 const descInput = document.getElementById('desc');
 const amountInput = document.getElementById('amount');
 const typeInput = document.getElementById('type');
 const addTransactionButton = document.getElementById('add-transaction');
 
-//charts
+// Charts
 let balanceChartInstance = null;
 let pieChartInstance = null;
 
-//dashboard
+// Dashboard
 function updateDashboard() {
   const totalIncome = transactions
     .filter(t => t.type === 'income')
@@ -55,22 +54,73 @@ function updateDashboard() {
   expensesElement.textContent = `$${totalExpenses.toFixed(2)}`;
 }
 
-//transactions
+// Render Transactions
 function renderTransactions() {
   transactionList.innerHTML = transactions
     .map(
-      t => `
+      (t, index) => `
       <tr>
         <td>${t.date}</td>
         <td>${t.description}</td>
         <td>$${t.amount.toFixed(2)}</td>
+        <td>
+          <button onclick="editTransaction(${index})">✏️ Edit</button>
+          <button onclick="deleteTransaction(${index})">❌ Delete</button>
+        </td>
       </tr>
     `
     )
     .join('');
 }
 
-//charts updation
+// Delete Transaction
+function deleteTransaction(index) {
+  if (confirm('Are you sure you want to delete this transaction?')) {
+    transactions.splice(index, 1);
+    updateDashboard();
+    renderTransactions();
+    renderCharts();
+  }
+}
+
+// Edit Transaction
+function editTransaction(index) {
+  const transaction = transactions[index];
+
+  descInput.value = transaction.description;
+  amountInput.value = transaction.amount;
+  typeInput.value = transaction.type;
+
+  addTransactionButton.textContent = 'Update Transaction';
+  addTransactionButton.onclick = () => {
+    const desc = descInput.value.trim();
+    const amount = parseFloat(amountInput.value);
+    const type = typeInput.value;
+
+    if (!desc || isNaN(amount)) {
+      alert('Please enter a valid description and amount.');
+      return;
+    }
+
+    transactions[index] = {
+      date: transaction.date,
+      description: desc,
+      amount: amount,
+      type: type,
+    };
+
+    descInput.value = '';
+    amountInput.value = '';
+    addTransactionButton.textContent = 'Add Transaction';
+    addTransactionButton.onclick = addTransaction;
+
+    updateDashboard();
+    renderTransactions();
+    renderCharts();
+  };
+}
+
+// Render Charts
 function renderCharts() {
   const ctx = document.getElementById('financeChart').getContext('2d');
   const pieCtx = document.getElementById('pieChart').getContext('2d');
@@ -85,15 +135,9 @@ function renderCharts() {
   const income = transactions.filter(t => t.type === 'income').reduce((sum, t) => sum + t.amount, 0);
   const expenses = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
 
-  
-  if (balanceChartInstance) {
-    balanceChartInstance.destroy();
-  }
-  if (pieChartInstance) {
-    pieChartInstance.destroy();
-  }
+  if (balanceChartInstance) balanceChartInstance.destroy();
+  if (pieChartInstance) pieChartInstance.destroy();
 
-  
   balanceChartInstance = new Chart(ctx, {
     type: 'line',
     data: {
@@ -117,7 +161,6 @@ function renderCharts() {
     },
   });
 
-  
   pieChartInstance = new Chart(pieCtx, {
     type: 'pie',
     data: {
@@ -133,7 +176,7 @@ function renderCharts() {
   });
 }
 
-
+// Add Transaction
 addTransactionButton.addEventListener('click', () => {
   const desc = descInput.value.trim();
   const amount = parseFloat(amountInput.value);
@@ -144,14 +187,13 @@ addTransactionButton.addEventListener('click', () => {
     return;
   }
 
-  const newTransaction = {
+  transactions.push({
     date: new Date().toISOString().split('T')[0],
     description: desc,
     amount: amount,
     type: type,
-  };
+  });
 
-  transactions.push(newTransaction);
   updateDashboard();
   renderTransactions();
   renderCharts();
@@ -160,20 +202,14 @@ addTransactionButton.addEventListener('click', () => {
   amountInput.value = '';
 });
 
-
-//fade effect
+// Fade Effect
 document.getElementById('logout-link').addEventListener('click', function(event) {
-  event.preventDefault(); 
+  event.preventDefault();
   document.body.style.opacity = '0';
-
-  
-  setTimeout(function() {
-      window.location.href = 'login.html';
-  }, 500); 
+  setTimeout(() => window.location.href = 'login.html', 500);
 });
 
-
+// Initial Render
 updateDashboard();
 renderTransactions();
 renderCharts();
-
