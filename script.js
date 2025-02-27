@@ -64,8 +64,7 @@ function renderTransactions() {
         <td>${t.description}</td>
         <td>$${t.amount.toFixed(2)}</td>
         <td>
-          <button onclick="editTransaction(${index})">✏️ </button>
-          <button onclick="deleteTransaction(${index})">❌</button>
+          <button onclick="deleteTransaction(${index})">❌ Delete</button>
         </td>
       </tr>
     `
@@ -81,43 +80,6 @@ function deleteTransaction(index) {
     renderTransactions();
     renderCharts();
   }
-}
-
-// Edit Transaction
-function editTransaction(index) {
-  const transaction = transactions[index];
-
-  descInput.value = transaction.description;
-  amountInput.value = transaction.amount;
-  typeInput.value = transaction.type;
-
-  addTransactionButton.textContent = 'Update Transaction';
-  addTransactionButton.onclick = () => {
-    const desc = descInput.value.trim();
-    const amount = parseFloat(amountInput.value);
-    const type = typeInput.value;
-
-    if (!desc || isNaN(amount)) {
-     
-      return;
-    }
-
-    transactions[index] = {
-      date: transaction.date,
-      description: desc,
-      amount: amount,
-      type: type,
-    };
-
-    descInput.value = '';
-    amountInput.value = '';
-    addTransactionButton.textContent = 'Add Transaction';
-    addTransactionButton.onclick = addTransaction;
-
-    updateDashboard();
-    renderTransactions();
-    renderCharts();
-  };
 }
 
 // Render Charts
