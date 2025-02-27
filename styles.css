@@ -283,9 +283,9 @@ table th {
 
 }
 
-/* Add these styles for the Delete button */
+
 button {
-  background-color: #dc3545; /* Red color for delete button */
+  background-color: #dc3545; 
   color: white;
   border: none;
   padding: 8px 16px;
@@ -296,16 +296,16 @@ button {
 }
 
 button:hover {
-  background-color: #c82333; /* Darker red on hover */
+  background-color: #c82333;
 }
 
 .dark-theme button {
-  background-color: #dc3545; /* Red color for delete button in dark theme */
+  background-color: #dc3545; 
   color: white;
 }
 
 .dark-theme button:hover {
-  background-color: #c82333; /* Darker red on hover in dark theme */
+  background-color: #c82333; 
 }
 
 
