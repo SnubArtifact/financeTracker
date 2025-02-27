@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Micro+5&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+CO+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiny5&display=swap" rel="stylesheet">
+<style>
+
+
+   body{
+    background-image:url("images/vivid-blurred-colorful-background.jpg");
+    background-size:cover;
+   } 
+
+
+</style>
+
+        <body>
+            <div class="login-container">
+                
+                <h2>Login or Signup</h2>
+                <form id="loginForm">
+                    
+                    <div id="errorMessage" class="error-message"></div>
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="submit" id="submit" value="Login">
+                </form>
+            </div>
+            
+            <script>
+                document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'password') {
+
+
+                //fade effect
+                document.body.style.opacity = '0';
+                setTimeout(function() {
+                    window.location.href = 'index.html';
+                }, 0o500); 
+            } else {
+                document.getElementById('errorMessage').innerText = 'Invalid username or password';
+            }
+        });
+            </script>
+        </body>
+    </head>
+
+</html>

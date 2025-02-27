@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker | Enterprise</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Agu+Display&family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Micro+5&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playwrite+CO+Guides&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiny5&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+  
+    <div class="container">
+        <header>
+            <h1>Finance Dashboard</h1>
+            <button id="theme-toggle">🌙 </button>
+            <a id= "logout-link" href="login.html">Logout</a>
+
+        </header>
+
+        <section class="dashboard">
+            <div class="stats">
+                <div class="stat-card balance">
+                    <h3>Balance</h3>
+                    <p id="balance">$0.00</p>
+                </div>
+                <div class="stat-card income">
+                    <h3>Income</h3>
+                    <p id="income">$0.00</p>
+                </div>
+                <div class="stat-card expenses">
+                    <h3>Expenses</h3>
+                    <p id="expenses">$0.00</p>
+                </div>
+                <div class="stat-card limit">
+                    <h3>Daily Limit</h3>
+                    <input type="number" id="daily-limit" placeholder="Set Limit">
+                </div>
+            </div>
+            <section class="add-transaction">
+                <h2>Add a New Transaction</h2>
+                <input type="text" id="desc" placeholder="Transaction Description">
+                <input type="number" id="amount" placeholder="Amount">
+                <select id="type">
+                    <option value="income">Income</option>
+                    <option value="expense">Expense</option>
+                </select>
+                <button id="add-transaction">Add Transaction</button>
+            </section>
+        </section>
+        <div id="graphs">
+            <section class="overview">
+                <h2>Balance Trend</h2>
+                <canvas id="financeChart"></canvas>
+            </section>
+    
+            <section class="pie-chart">
+                <h2>Income vs Expenses</h2>
+                <canvas id="pieChart"></canvas>
+            </section>
+        </div>
+        
+        
+
+        <section class="transactions">
+            <h2>Transaction History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-list"></tbody>
+            </table>
+        </section>
+
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
