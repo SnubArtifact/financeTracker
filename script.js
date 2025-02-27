@@ -64,7 +64,7 @@ function renderTransactions() {
         <td>${t.description}</td>
         <td>$${t.amount.toFixed(2)}</td>
         <td>
-          <button onclick="deleteTransaction(${index})">❌ Delete</button>
+          <button onclick="deleteTransaction(${index})">❌ </button>
         </td>
       </tr>
     `
